@@ -1,8 +1,12 @@
 plugins {
 	id 'java'
+	id 'application'
 	id 'checkstyle'
+	id 'jacoco'
+
 	id 'org.springframework.boot' version '2.5.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+
 	id 'com.adarshr.test-logger' version '3.0.0'
 	id 'org.liquibase.gradle' version '2.0.4'
 }
@@ -45,6 +49,17 @@ testlogger {
 // чтобы миграция генерировалась при каждом изменении в модели
 diffChangeLog {
 	dependsOn compileJava
+}
+
+// test cover
+jacocoTestReport {
+	reports {
+		xml.required = true
+	}
+}
+
+jacocoTestReport {
+	dependsOn test
 }
 
 // Настраиваем Liquibase
