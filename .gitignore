@@ -22,6 +22,7 @@ bin/
 *.iws
 *.iml
 *.ipr
+*.db
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -35,6 +36,7 @@ out/
 
 ### VS Code ###
 .vscode/
-/taskManager.mv.db
-/taskManager.trace.db
-/node/
+
+node
+frontend/node_modules
+fronetend/build
