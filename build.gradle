@@ -11,7 +11,9 @@ plugins {
 	id 'org.liquibase.gradle' version '2.0.4'
 }
 
-group = 'exercise'
+group = 'hexlet.code'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
@@ -33,25 +35,29 @@ dependencies {
 	liquibaseRuntime sourceSets.main.output
 }
 
-checkstyle {
-	toolVersion '10.0'
+application {
+	mainClass = 'hexlet.code.AppApplication'
 }
 
-test {
+compileJava {
+	options.release = 17
+	options.encoding = 'UTF-8'
+}
+
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
+}
+
+tasks.named('test') {
 	useJUnitPlatform()
+//    finalizedBy jacocoTestReport
 }
 
-testlogger {
-	showStandardStreams = true
-}
+//test {
+//    useJUnitPlatform()
+//}
 
-// Настраиваем таскуdiffChangeLog таким образом,
-// чтобы миграция генерировалась при каждом изменении в модели
-diffChangeLog {
-	dependsOn compileJava
-}
-
-// test cover
 jacocoTestReport {
 	reports {
 		xml.required = true
@@ -59,7 +65,13 @@ jacocoTestReport {
 }
 
 jacocoTestReport {
-	dependsOn test
+	dependsOn test // tests are required to run before generating the report
+}
+
+// Настраиваем таску diffChangeLog таким образом,
+// чтобы миграция генерировалась при каждом изменении в модели
+diffChangeLog {
+	dependsOn compileJava
 }
 
 // Настраиваем Liquibase
@@ -68,16 +80,14 @@ liquibase {
 		main {
 			// Указываем путь, по которому будет сгенерирован файл миграции
 			changeLogFile 'src/main/resources/db/changelog/changelog-master.xml'
-			// Указывем источник, с которым будут сравниваться изменния
+			// Указывем источник, с которым будут сравниваться изменения
 			// Это база данных, изначально она пустая
-			url 'jdbc:h2:./hexlet'
+			url 'jdbc:h2:./taskManager'
 			// Имя пользователя и пароль для подключения к базе
 			username 'sa'
-			password ''
-			// Указывем, откуда мы будем брать изменения
-			// Это модели
-			// Указываем пакет, в котором расположены модели
-			referenceUrl 'hibernate:spring:exercise.model' +
+			password 'admin'
+			// Сравниваем с моделями, задавая пакет
+			referenceUrl 'hibernate:spring:hexlet.code.model.' +
 					// Указываем диалект
 					'?dialect=org.hibernate.dialect.H2Dialect' +
 					// Указываем правила именования таблиц и столбцов,
