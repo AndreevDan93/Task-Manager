@@ -19,6 +19,26 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+application {
+	mainClass = 'hexlet.code.AppApplication'
+}
+
+compileJava {
+	options.release = 17
+	options.encoding = 'UTF-8'
+}
+
+wrapper {
+	gradleVersion = '7.3'
+	distributionType = Wrapper.DistributionType.ALL
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -35,28 +55,18 @@ dependencies {
 	liquibaseRuntime sourceSets.main.output
 }
 
-application {
-	mainClass = 'hexlet.code.AppApplication'
-}
-
-compileJava {
-	options.release = 17
-	options.encoding = 'UTF-8'
-}
-
-
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
-//    finalizedBy jacocoTestReport
+    finalizedBy jacocoTestReport
 }
 
-//test {
-//    useJUnitPlatform()
-//}
+test {
+    useJUnitPlatform()
+}
 
 jacocoTestReport {
 	reports {
