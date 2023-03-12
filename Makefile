@@ -1,6 +1,3 @@
-setup:
-	gradle wrapper --gradle-version 7.3
-
 clean:
 	./gradlew clean
 
@@ -36,3 +33,5 @@ generate-migrations:
 
 db-migrate:
 	./gradlew update
+
+.PHONY: build

@@ -1,0 +1,19 @@
+server:
+  error:
+    include-stacktrace: on_param
+
+springdoc:
+  swagger-ui:
+    path: /swagger.html
+
+spring:
+  datasource:
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    url: ${JDBC_DATABASE_URL}
+
+  jpa:
+    show-sql: true
+
+
+
