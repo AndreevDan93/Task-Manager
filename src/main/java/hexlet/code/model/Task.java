@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
@@ -32,6 +33,11 @@ public class Task {
     @Column(name = "description")
     private String description;
 
+    @CreationTimestamp
+    @Temporal(TIMESTAMP)
+    @Column(name = "createdAt")
+    private Date createdAt;
+
     @NotNull(message = "Task Status should not be Empty")
     @ManyToOne
     @JoinColumn(name = "task_status_id", referencedColumnName = "id")
@@ -46,10 +52,11 @@ public class Task {
     @JoinColumn(name = "executor_id", referencedColumnName = "id")
     private User executor;
 
-    @CreationTimestamp
-    @Temporal(TIMESTAMP)
-    @Column(name = "createdAt")
-    private Date createdAt;
-
-
+    @ManyToMany
+    @JoinTable(
+            name = "tasks_labels",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
+    private List<Label> labels;
 }

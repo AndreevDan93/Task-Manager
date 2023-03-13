@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +23,6 @@ public class TaskDTO {
 
     @NotNull(message = "Task Status should not be Empty")
     private Long taskStatusId;
+
+    private List<Long> labelIds;
 }

@@ -33,8 +33,7 @@ public class TaskStatusServiceImpl implements TaskStatusService{
 
     @Override
     public TaskStatus updateTaskStatus(long id, TaskStatusDTO taskStatusDTO) {
-        TaskStatus taskStatus = taskStatusRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Task Status with that id is not exist"));
+        TaskStatus taskStatus = getTaskStatusById(id);
         taskStatus.setName(taskStatusDTO.getName());
         return taskStatusRepository.save(taskStatus);
     }

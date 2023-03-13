@@ -34,8 +34,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User updateUser(Long id, UserDTO userDTO) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с таким id не найден"));
+        User user = getUserById(id);
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());

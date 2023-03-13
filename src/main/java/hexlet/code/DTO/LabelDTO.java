@@ -9,9 +9,10 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class TaskStatusDTO {
+@AllArgsConstructor
+public class LabelDTO {
+
     @NotBlank(message = "Task Status Name should not be Empty")
     private String name;
 }
