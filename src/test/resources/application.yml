@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: taskManager
+  datasource:
+    username: "sa"
+    password: ""
+    url: "jdbc:h2:./taskManager"
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.yaml
+
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
