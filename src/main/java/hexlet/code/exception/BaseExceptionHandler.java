@@ -1,4 +1,4 @@
-package hexlet.code.exepton;
+package hexlet.code.exception;
 
 import com.rollbar.notifier.Rollbar;
 import hexlet.code.exception.custom.LabelNotFoundException;
@@ -93,6 +93,7 @@ public class BaseExceptionHandler {
     private ErrorResponse getErrorResponseAndSendToRollbar(String message) {
         ErrorResponse errorResponse = new ErrorResponse(message);
         rollbar.error(errorResponse.toString());
+        rollbar.debug("Here is some debug message");
         return errorResponse;
     }
 }

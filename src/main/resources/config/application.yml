@@ -2,6 +2,8 @@ server:
   port: ${PORT:5000}
 
 base-url: /api
+rollbar_token: ${ROLLBAR_TOKEN:b6aa877be0aa4e198d020e890f0ae2d8}
+jwt_secret: ${JWT_SECRET:secret}
 
 spring:
   application:
