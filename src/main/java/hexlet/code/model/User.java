@@ -1,24 +1,22 @@
 package hexlet.code.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.persistence.Column;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -67,17 +65,4 @@ public class User {
     @OneToMany(mappedBy = "executor")
     private List<Task> executorsTasks;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", createdAt=" + createdAt +
-                ", authorTasks=" + authorTasks +
-                ", executorsTasks=" + executorsTasks +
-                '}';
-    }
 }

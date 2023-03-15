@@ -1,6 +1,5 @@
 package hexlet.code.filter;
 
-
 import java.io.IOException;
 import java.util.Optional;
 import javax.servlet.FilterChain;

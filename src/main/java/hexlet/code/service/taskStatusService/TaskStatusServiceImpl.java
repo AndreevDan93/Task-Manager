@@ -11,8 +11,9 @@ import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
-public class TaskStatusServiceImpl implements TaskStatusService{
+public class TaskStatusServiceImpl implements TaskStatusService {
     private final TaskStatusRepository taskStatusRepository;
+
     @Override
     public List<TaskStatus> getAllTaskStatuses() {
         return taskStatusRepository.findAll();
