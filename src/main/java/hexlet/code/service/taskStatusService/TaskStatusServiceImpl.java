@@ -1,6 +1,6 @@
 package hexlet.code.service.taskStatusService;
 
-import hexlet.code.DTO.TaskStatusDTO;
+import hexlet.code.dto.TaskStatusDto;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
 import lombok.AllArgsConstructor;
@@ -26,14 +26,14 @@ public class TaskStatusServiceImpl implements TaskStatusService {
     }
 
     @Override
-    public TaskStatus createTaskStatus(TaskStatusDTO taskStatusDTO) {
+    public TaskStatus createTaskStatus(TaskStatusDto taskStatusDTO) {
         TaskStatus taskStatus = new TaskStatus();
         taskStatus.setName(taskStatusDTO.getName());
         return taskStatusRepository.save(taskStatus);
     }
 
     @Override
-    public TaskStatus updateTaskStatus(long id, TaskStatusDTO taskStatusDTO) {
+    public TaskStatus updateTaskStatus(long id, TaskStatusDto taskStatusDTO) {
         TaskStatus taskStatus = getTaskStatusById(id);
         taskStatus.setName(taskStatusDTO.getName());
         return taskStatusRepository.save(taskStatus);

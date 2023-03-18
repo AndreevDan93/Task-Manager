@@ -1,17 +1,9 @@
 package hexlet.code.filter;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.DTO.LoginDTO;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.stream.Collectors;
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import hexlet.code.dto.LoginDto;
 import hexlet.code.component.JWTHelper;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,15 +13,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
     private final JWTHelper jwtHelper;
 
     public JWTAuthenticationFilter(final AuthenticationManager authenticationManager,
-                                   final RequestMatcher loginRequest,
-                                   final JWTHelper jwtHelper) {
+                                   RequestMatcher loginRequest, final JWTHelper jwtHelper) {
         super(authenticationManager);
         super.setRequiresAuthenticationRequestMatcher(loginRequest);
         this.jwtHelper = jwtHelper;
@@ -38,8 +33,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(final HttpServletRequest request,
                                                 final HttpServletResponse response) throws AuthenticationException {
-        final LoginDTO loginData = getLoginData(request);
-        final UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+        final LoginDto loginData = getLoginData(request);
+        final var authRequest = new UsernamePasswordAuthenticationToken(
                 loginData.getEmail(),
                 loginData.getPassword()
         );
@@ -47,14 +42,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return getAuthenticationManager().authenticate(authRequest);
     }
 
-    private LoginDTO getLoginData(final HttpServletRequest request) throws AuthenticationException {
+    private LoginDto getLoginData(final HttpServletRequest request) throws AuthenticationException {
         try {
             final String json = request.getReader()
                     .lines()
                     .collect(Collectors.joining());
-            Map<String, String> mapRequest = MAPPER.readValue(json, new TypeReference<>() {
-            });
-            return new LoginDTO(mapRequest.get("email"), mapRequest.get("password"));
+            return new ObjectMapper().readValue(json, LoginDto.class);
         } catch (IOException e) {
             throw new BadCredentialsException("Can't extract login data from request");
         }
@@ -66,8 +59,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             final FilterChain chain,
                                             final Authentication authResult) throws IOException {
         final UserDetails user = (UserDetails) authResult.getPrincipal();
-        final String token = jwtHelper.expiring(Map.of("email", user.getUsername()));
-
-        response.getWriter().print(token);
+        final String token = jwtHelper.expiring(Map.of(SPRING_SECURITY_FORM_USERNAME_KEY, user.getUsername()));
+        response.getWriter().println(token);
     }
 }

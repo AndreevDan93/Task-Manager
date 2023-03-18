@@ -1,4 +1,4 @@
-package hexlet.code.DTO;
+package hexlet.code.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskDTO {
+public class TaskDto {
     @NotBlank(message = "Name of Task should not be Empty")
     private String name;
 

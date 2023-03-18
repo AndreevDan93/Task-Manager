@@ -1,6 +1,6 @@
 package hexlet.code.controller;
 
-import hexlet.code.DTO.UserDTO;
+import hexlet.code.dto.UserDto;
 import hexlet.code.model.User;
 import hexlet.code.service.userService.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,7 +59,7 @@ public class UserController {
     @ApiResponse(responseCode = "201", description = "User was successfully created")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
-    public User createUser(@RequestBody @Valid UserDTO userDTO) {
+    public User createUser(@RequestBody @Valid UserDto userDTO) {
         return userService.createUser(userDTO);
     }
 
@@ -71,7 +71,7 @@ public class UserController {
     @PutMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
     public User updateUser(@PathVariable("id") final long id,
-                           @RequestBody @Valid final UserDTO userDTO) {
+                           @RequestBody @Valid final UserDto userDTO) {
         return userService.updateUser(id, userDTO);
     }
 

@@ -1,6 +1,6 @@
 package hexlet.code.service.userService;
 
-import hexlet.code.DTO.UserDTO;
+import hexlet.code.dto.UserDto;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(UserDTO userDTO) {
+    public User createUser(UserDto userDTO) {
         User user = new User();
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User updateUser(Long id, UserDTO userDTO) {
+    public User updateUser(Long id, UserDto userDTO) {
         User user = getUserById(id);
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());

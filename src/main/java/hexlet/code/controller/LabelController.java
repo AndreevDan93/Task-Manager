@@ -1,6 +1,6 @@
 package hexlet.code.controller;
 
-import hexlet.code.DTO.LabelDTO;
+import hexlet.code.dto.LabelDto;
 import hexlet.code.model.Label;
 import hexlet.code.service.labelService.LabelService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static hexlet.code.controller.LabelController.LABELS_CONTROLLER_PATH;
+import static hexlet.code.controller.LabelController.LABEL_CONTROLLER_PATH;
 
 @Tag(name = "Label controller")
 @RestController
-@RequestMapping("${base-url}" + LABELS_CONTROLLER_PATH)
+@RequestMapping("${base-url}" + LABEL_CONTROLLER_PATH)
 @AllArgsConstructor
 public class LabelController {
-    public static final String LABELS_CONTROLLER_PATH = "/labels";
+    public static final String LABEL_CONTROLLER_PATH = "/labels";
     public static final String ID = "/{id}";
     private final LabelService labelService;
 
@@ -54,7 +54,7 @@ public class LabelController {
     @ApiResponse(responseCode = "201", description = "Label was successfully created")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
-    public Label createLabel(@RequestBody @Valid final LabelDTO labelDTO) {
+    public Label createLabel(@RequestBody @Valid final LabelDto labelDTO) {
         return labelService.createLabel(labelDTO);
     }
 
@@ -65,7 +65,7 @@ public class LabelController {
     })
     @PutMapping(ID)
     public Label updateLabel(@PathVariable("id") final long id,
-                             @RequestBody @Valid final LabelDTO labelDTO) {
+                             @RequestBody @Valid final LabelDto labelDTO) {
         return labelService.updateLabel(id, labelDTO);
     }
 

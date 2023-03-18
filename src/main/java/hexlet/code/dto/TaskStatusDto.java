@@ -1,4 +1,4 @@
-package hexlet.code.DTO;
+package hexlet.code.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskStatusDTO {
+public class TaskStatusDto {
     @NotBlank(message = "Task Status Name should not be Empty")
     private String name;
 }

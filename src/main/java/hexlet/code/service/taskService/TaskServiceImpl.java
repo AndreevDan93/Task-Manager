@@ -1,7 +1,7 @@
 package hexlet.code.service.taskService;
 
 import com.querydsl.core.types.Predicate;
-import hexlet.code.DTO.TaskDTO;
+import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
@@ -40,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task createTask(TaskDTO taskDTO) {
+    public Task createTask(TaskDto taskDTO) {
         Task task = new Task();
         matDTOtoModel(taskDTO, task);
         return taskRepository.save(task);
@@ -49,7 +49,7 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Override
-    public Task updateTask(long id, TaskDTO taskDTO) {
+    public Task updateTask(long id, TaskDto taskDTO) {
         Task task = getTaskById(id);
         matDTOtoModel(taskDTO, task);
         return taskRepository.save(task);
@@ -60,7 +60,7 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteById(id);
     }
 
-    private void matDTOtoModel(TaskDTO taskDTO, Task task) {
+    private void matDTOtoModel(TaskDto taskDTO, Task task) {
         final User author = userService.getCurrentUser();
         final TaskStatus taskStatus = taskStatusService.getTaskStatusById(taskDTO.getTaskStatusId());
         final Long executorId = taskDTO.getExecutorId();

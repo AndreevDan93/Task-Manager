@@ -1,7 +1,7 @@
 package hexlet.code.controller;
 
 import com.querydsl.core.types.Predicate;
-import hexlet.code.DTO.TaskDTO;
+import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Task;
 import hexlet.code.service.taskService.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static hexlet.code.controller.TaskController.TASKS_CONTROLLER_PATH;
+import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
 
 @Tag(name = "Task controller")
 @RestController
-@RequestMapping("${base-url}" + TASKS_CONTROLLER_PATH)
+@RequestMapping("${base-url}" + TASK_CONTROLLER_PATH)
 @AllArgsConstructor
 public class TaskController {
-    public static final String TASKS_CONTROLLER_PATH = "/tasks";
+    public static final String TASK_CONTROLLER_PATH = "/tasks";
     public static final String ID = "/{id}";
     private final TaskService taskService;
 
@@ -55,7 +55,7 @@ public class TaskController {
     @ApiResponse(responseCode = "201", description = "Task was successfully created")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Task createTask(@RequestBody @Valid final TaskDTO taskDTO) {
+    public Task createTask(@RequestBody @Valid final TaskDto taskDTO) {
         return taskService.createTask(taskDTO);
     }
 
@@ -66,7 +66,7 @@ public class TaskController {
     })
     @PutMapping(ID)
     public Task updateTask(@PathVariable("id") final long id,
-                           @RequestBody @Valid final TaskDTO taskDTO) {
+                           @RequestBody @Valid final TaskDto taskDTO) {
         return taskService.updateTask(id, taskDTO);
     }
 

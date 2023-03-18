@@ -1,6 +1,6 @@
 package hexlet.code.controller;
 
-import hexlet.code.DTO.TaskStatusDTO;
+import hexlet.code.dto.TaskStatusDto;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.service.taskStatusService.TaskStatusService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static hexlet.code.controller.TaskStatusController.STATUS_CONTROLLER_PATH;
+import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
 
 @Tag(name = "Task status controller")
 @RestController
-@RequestMapping("${base-url}" + STATUS_CONTROLLER_PATH)
+@RequestMapping("${base-url}" + TASK_STATUS_CONTROLLER_PATH)
 @AllArgsConstructor
 public class TaskStatusController {
-    public static final String STATUS_CONTROLLER_PATH = "/statuses";
+    public static final String TASK_STATUS_CONTROLLER_PATH = "/statuses";
     public static final String ID = "/{id}";
     private final TaskStatusService taskStatusService;
 
@@ -53,7 +53,7 @@ public class TaskStatusController {
     @ApiResponse(responseCode = "201", description = "Task Status was successfully created")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
-    public TaskStatus createTaskStatus(@RequestBody final TaskStatusDTO taskStatusDTO) {
+    public TaskStatus createTaskStatus(@RequestBody final TaskStatusDto taskStatusDTO) {
         return taskStatusService.createTaskStatus(taskStatusDTO);
     }
 
@@ -64,7 +64,7 @@ public class TaskStatusController {
     })
     @PutMapping(ID)
     public TaskStatus updateTaskStatus(@PathVariable("id") final long id,
-                                       @RequestBody final TaskStatusDTO taskStatusDTO) {
+                                       @RequestBody final TaskStatusDto taskStatusDTO) {
         return taskStatusService.updateTaskStatus(id, taskStatusDTO);
     }
 
