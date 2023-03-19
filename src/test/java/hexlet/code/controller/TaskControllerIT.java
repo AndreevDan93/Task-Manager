@@ -5,7 +5,6 @@ import hexlet.code.config.SpringConfigForIT;
 import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Label;
 import hexlet.code.model.Task;
-import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.utils.TestUtils;
@@ -24,8 +23,6 @@ import java.util.List;
 import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
 import static hexlet.code.controller.LabelController.ID;
 import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
-import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
-import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
 import static hexlet.code.utils.TestUtils.BASE_URL;
 import static hexlet.code.utils.TestUtils.TEST_USERNAME;
 import static hexlet.code.utils.TestUtils.asJson;
@@ -106,7 +103,7 @@ public class TaskControllerIT {
                 task.getTaskStatus().getId(),
                 List.of(label.getId()));
 
-        final var updateRequest = put(BASE_URL + TASK_CONTROLLER_PATH + ID, task.getId(),TEST_USERNAME)
+        final var updateRequest = put(BASE_URL + TASK_CONTROLLER_PATH + ID, task.getId(), TEST_USERNAME)
                 .content(asJson(taskDto))
                 .contentType(APPLICATION_JSON);
 
@@ -126,7 +123,6 @@ public class TaskControllerIT {
                 .andExpect(status().isOk());
         Assertions.assertThat(taskRepository.count()).isEqualTo(0);
     }
-
 
 
 }

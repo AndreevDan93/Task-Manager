@@ -90,12 +90,24 @@ public class TestUtils {
     }
 
     public ResultActions createNewTask() throws Exception {
-        User user = fromJson(regDefaultUser().andReturn().getResponse().getContentAsString(), new TypeReference<User>() {
-        });
-        Label label = fromJson(createNewLabel().andReturn().getResponse().getContentAsString(), new TypeReference<Label>() {
-        });
-        TaskStatus taskStatus = fromJson(createNewTaskStatus().andReturn().getResponse().getContentAsString(), new TypeReference<TaskStatus>() {
-        });
+        User user = fromJson(regDefaultUser()
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString(),
+                new TypeReference<User>() {
+                });
+        Label label = fromJson(createNewLabel()
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString(),
+                new TypeReference<Label>() {
+                });
+        TaskStatus taskStatus = fromJson(createNewTaskStatus()
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString(),
+                new TypeReference<TaskStatus>() {
+                });
 
         TaskDto taskDto = new TaskDto("Task",
                 "description",

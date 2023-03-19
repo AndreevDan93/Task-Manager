@@ -7,11 +7,7 @@ import hexlet.code.dto.UserDto;
 import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.utils.TestUtils;
-
-import java.util.List;
-
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
 
 import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
 import static hexlet.code.config.security.SecurityConfig.LOGIN;
@@ -115,7 +113,9 @@ public class UserControllerIT {
                 utils.getTestRegistrationDto().getEmail(),
                 utils.getTestRegistrationDto().getPassword()
         );
-        final var loginRequest = post(BASE_URL + LOGIN).content(asJson(loginDto)).contentType(APPLICATION_JSON);
+        final var loginRequest = post(BASE_URL + LOGIN)
+                .content(asJson(loginDto))
+                .contentType(APPLICATION_JSON);
         utils.perform(loginRequest).andExpect(status().isOk());
     }
 
@@ -126,7 +126,9 @@ public class UserControllerIT {
                 utils.getTestRegistrationDto().getEmail(),
                 utils.getTestRegistrationDto().getPassword()
         );
-        final var loginRequest = post(BASE_URL + LOGIN).content(asJson(loginDto)).contentType(APPLICATION_JSON);
+        final var loginRequest = post(BASE_URL + LOGIN)
+                .content(asJson(loginDto))
+                .contentType(APPLICATION_JSON);
         utils.perform(loginRequest).andExpect(status().isUnauthorized());
     }
 
@@ -136,7 +138,10 @@ public class UserControllerIT {
 
         final Long userId = userRepository.findByEmail(TEST_USERNAME).get().getId();
 
-        final var userDto = new UserDto("new name", "new last name", TEST_USERNAME_2, "new pwd");
+        final var userDto = new UserDto("new name",
+                "new last name",
+                TEST_USERNAME_2,
+                "new pwd");
 
         final var updateRequest = put(BASE_URL + USER_CONTROLLER_PATH + ID, userId)
                 .content(asJson(userDto))

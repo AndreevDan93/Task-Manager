@@ -1,9 +1,8 @@
 package hexlet.code.config.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.component.JWTHelper;
 import hexlet.code.filter.JWTAuthenticationFilter;
 import hexlet.code.filter.JWTAuthorizationFilter;
-import hexlet.code.component.JWTHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

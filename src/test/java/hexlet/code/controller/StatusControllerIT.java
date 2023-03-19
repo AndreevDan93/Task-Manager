@@ -3,10 +3,8 @@ package hexlet.code.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import hexlet.code.config.SpringConfigForIT;
 import hexlet.code.dto.LabelDto;
-import hexlet.code.dto.TaskStatusDto;
 import hexlet.code.model.Label;
 import hexlet.code.model.TaskStatus;
-import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.utils.TestUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
@@ -32,10 +29,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -73,7 +69,8 @@ public class StatusControllerIT {
         final var response = utils.createNewTaskStatus().andReturn().getResponse();
         TaskStatus taskStatus = fromJson(response.getContentAsString(), new TypeReference<>() {
         });
-        final var responseGet = utils.perform(get(BASE_URL + TASK_STATUS_CONTROLLER_PATH + ID, taskStatus.getId()), TEST_USERNAME)
+        final var responseGet = utils.perform(get(BASE_URL + TASK_STATUS_CONTROLLER_PATH + ID,
+                        taskStatus.getId()), TEST_USERNAME)
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
@@ -87,7 +84,8 @@ public class StatusControllerIT {
         TaskStatus taskStatus = fromJson(response.getContentAsString(), new TypeReference<>() {
         });
         LabelDto newLabelDto = new LabelDto("new new status");
-        final var responsePut = utils.perform(put(BASE_URL + TASK_STATUS_CONTROLLER_PATH + ID, taskStatus.getId())
+        final var responsePut = utils.perform(put(BASE_URL + TASK_STATUS_CONTROLLER_PATH + ID,
+                                taskStatus.getId())
                                 .content(asJson(newLabelDto))
                                 .contentType(APPLICATION_JSON),
                         TEST_USERNAME)
