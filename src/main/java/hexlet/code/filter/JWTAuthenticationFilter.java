@@ -20,11 +20,15 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final JWTHelper jwtHelper;
+    private static final ObjectMapper MAPPER = new ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public JWTAuthenticationFilter(final AuthenticationManager authenticationManager,
-                                   RequestMatcher loginRequest, final JWTHelper jwtHelper) {
+                                   final RequestMatcher loginRequest,
+                                   final JWTHelper jwtHelper) {
         super(authenticationManager);
         super.setRequiresAuthenticationRequestMatcher(loginRequest);
         this.jwtHelper = jwtHelper;
@@ -47,7 +51,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             final String json = request.getReader()
                     .lines()
                     .collect(Collectors.joining());
-            return new ObjectMapper().readValue(json, LoginDto.class);
+            return MAPPER.readValue(json, LoginDto.class);
         } catch (IOException e) {
             throw new BadCredentialsException("Can't extract login data from request");
         }
@@ -60,6 +64,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             final Authentication authResult) throws IOException {
         final UserDetails user = (UserDetails) authResult.getPrincipal();
         final String token = jwtHelper.expiring(Map.of(SPRING_SECURITY_FORM_USERNAME_KEY, user.getUsername()));
-        response.getWriter().println(token);
+
+        response.getWriter().print(token);
     }
 }
