@@ -31,16 +31,13 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String LOGIN = "/login";
-
     public static final List<GrantedAuthority> DEFAULT_AUTHORITIES
             = List.of(new SimpleGrantedAuthority("USER"));
-
     private final RequestMatcher publicUrls;
     private final RequestMatcher loginRequest;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final JWTHelper jwtHelper;
-
 
     public SecurityConfig(@Value("${base-url}") final String baseUrl,
                           final UserDetailsService userDetailsService,
@@ -67,7 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         final var authenticationFilter = new JWTAuthenticationFilter(
                 authenticationManagerBean(), loginRequest, jwtHelper);
 
@@ -89,5 +85,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().disable()
                 .headers().frameOptions().disable();
     }
-
 }

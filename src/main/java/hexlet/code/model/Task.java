@@ -35,34 +35,27 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotBlank(message = "Name of Task should not be Empty")
     @Column(name = "name")
     private String name;
-
     @Lob
     @Column(name = "description")
     private String description;
-
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     @Column(name = "createdAt")
     private Date createdAt;
-
     @NotNull(message = "Task Status should not be Empty")
     @ManyToOne
     @JoinColumn(name = "task_status_id", referencedColumnName = "id")
     private TaskStatus taskStatus;
-
     @NotNull(message = "Author should not be Empty")
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
-
     @ManyToOne
     @JoinColumn(name = "executor_id", referencedColumnName = "id")
     private User executor;
-
     @ManyToMany
     @JoinTable(
             name = "tasks_labels",

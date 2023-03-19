@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Welcome controller")
 @RestController("/welcome")
 public class WelcomeController {
-
     @Operation(summary = "Welcome page")
     @ApiResponse(responseCode = "200", description = "Welcome page has been loaded")
     @GetMapping()
     public String welcome() {
         return "Welcome to Spring";
     }
-
 }

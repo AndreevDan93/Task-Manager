@@ -16,13 +16,9 @@ import java.util.List;
 public class TaskDto {
     @NotBlank(message = "Name of Task should not be Empty")
     private String name;
-
     private String description;
-
     private Long executorId;
-
     @NotNull(message = "Task Status should not be Empty")
     private Long taskStatusId;
-
     private List<Long> labelIds;
 }

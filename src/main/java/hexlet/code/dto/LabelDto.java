@@ -12,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LabelDto {
-
     @NotBlank(message = "Task Status Name should not be Empty")
     private String name;
 }

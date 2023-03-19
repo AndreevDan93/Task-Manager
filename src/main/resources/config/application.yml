@@ -24,7 +24,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-
 springdoc:
   api-docs:
     path: /swagger.html
