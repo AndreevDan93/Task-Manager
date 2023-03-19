@@ -20,9 +20,9 @@ import java.util.List;
 
 import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
 import static hexlet.code.config.security.SecurityConfig.LOGIN;
-import static hexlet.code.controller.UserController.ID;
-import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
+import static hexlet.code.utils.TestUtils.ID;
 import static hexlet.code.utils.TestUtils.BASE_URL;
+import static hexlet.code.utils.TestUtils.BASE_USER_URL;
 import static hexlet.code.utils.TestUtils.TEST_USERNAME;
 import static hexlet.code.utils.TestUtils.TEST_USERNAME_2;
 import static hexlet.code.utils.TestUtils.asJson;
@@ -54,7 +54,7 @@ public class UserControllerIT {
 
     @AfterEach
     public void clear() {
-        utils.tearDown();
+        utils.clearDB();
     }
 
     @Test
@@ -68,8 +68,9 @@ public class UserControllerIT {
     public void getUserById() throws Exception {
         utils.regDefaultUser();
         final User expectedUser = userRepository.findAll().get(0);
+
         final var response = utils.perform(
-                        get(BASE_URL + USER_CONTROLLER_PATH + ID, expectedUser.getId()),
+                        get(BASE_USER_URL + ID, expectedUser.getId()),
                         expectedUser.getEmail()
                 ).andExpect(status().isOk())
                 .andReturn()
@@ -87,7 +88,14 @@ public class UserControllerIT {
     @Test
     public void getAllUsers() throws Exception {
         utils.regDefaultUser();
-        final var response = utils.perform(get(BASE_URL + USER_CONTROLLER_PATH))
+        UserDto userDto = new UserDto(
+                "name",
+                "fname",
+                TEST_USERNAME_2,
+                "pass"
+        );
+        utils.regUser(userDto);
+        final var response = utils.perform(get(BASE_USER_URL))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
@@ -95,7 +103,7 @@ public class UserControllerIT {
         final List<User> users = fromJson(response.getContentAsString(), new TypeReference<>() {
         });
 
-        assertThat(users).hasSize(1);
+        assertThat(users).hasSize(2);
     }
 
     @Test
@@ -110,8 +118,8 @@ public class UserControllerIT {
     public void login() throws Exception {
         utils.regDefaultUser();
         final LoginDto loginDto = new LoginDto(
-                utils.getTestRegistrationDto().getEmail(),
-                utils.getTestRegistrationDto().getPassword()
+                utils.getTestUserDto().getEmail(),
+                utils.getTestUserDto().getPassword()
         );
         final var loginRequest = post(BASE_URL + LOGIN)
                 .content(asJson(loginDto))
@@ -123,8 +131,8 @@ public class UserControllerIT {
     @Test
     public void loginFail() throws Exception {
         final LoginDto loginDto = new LoginDto(
-                utils.getTestRegistrationDto().getEmail(),
-                utils.getTestRegistrationDto().getPassword()
+                utils.getTestUserDto().getEmail(),
+                utils.getTestUserDto().getPassword()
         );
         final var loginRequest = post(BASE_URL + LOGIN)
                 .content(asJson(loginDto))
@@ -141,9 +149,9 @@ public class UserControllerIT {
         final var userDto = new UserDto("new name",
                 "new last name",
                 TEST_USERNAME_2,
-                "new pwd");
+                "new pass");
 
-        final var updateRequest = put(BASE_URL + USER_CONTROLLER_PATH + ID, userId)
+        final var updateRequest = put(BASE_USER_URL + ID, userId)
                 .content(asJson(userDto))
                 .contentType(APPLICATION_JSON);
 
@@ -160,7 +168,7 @@ public class UserControllerIT {
 
         final Long userId = userRepository.findByEmail(TEST_USERNAME).get().getId();
 
-        utils.perform(delete(BASE_URL + USER_CONTROLLER_PATH + ID, userId), TEST_USERNAME)
+        utils.perform(delete(BASE_USER_URL + ID, userId), TEST_USERNAME)
                 .andExpect(status().isOk());
 
         assertEquals(0, userRepository.count());
@@ -178,7 +186,7 @@ public class UserControllerIT {
 
         final Long userId = userRepository.findByEmail(TEST_USERNAME).get().getId();
 
-        utils.perform(delete(BASE_URL + USER_CONTROLLER_PATH + ID, userId), TEST_USERNAME_2)
+        utils.perform(delete(BASE_USER_URL + ID, userId), TEST_USERNAME_2)
                 .andExpect(status().isForbidden());
 
         assertEquals(2, userRepository.count());

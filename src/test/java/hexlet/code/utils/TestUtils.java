@@ -35,26 +35,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @Component
 public class TestUtils {
-
-    public static final String BASE_URL = "/api";
-    public static final String TEST_USERNAME = "email@email.com";
-    public static final String TEST_USERNAME_2 = "email2@email.com";
-
-    private final UserDto testRegistrationDto = new UserDto(
-            "firstName",
-            "lastName",
-            TEST_USERNAME,
-            "pass"
-    );
-
-
-    public UserDto getTestRegistrationDto() {
-        return testRegistrationDto;
-    }
-
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -63,51 +45,72 @@ public class TestUtils {
     private TaskRepository taskRepository;
     @Autowired
     private TaskStatusRepository taskStatusRepository;
-
-
     @Autowired
     private JWTHelper jwtHelper;
 
-    public void tearDown() {
+    public static final String ID = "/{id}";
+    public static final String BASE_URL = "/api";
+    public static final String BASE_USER_URL = BASE_URL + USER_CONTROLLER_PATH;
+    public static final String BASE_LABEL_URL = BASE_URL + LABEL_CONTROLLER_PATH;
+    public static final String BASE_STATUS_URL = BASE_URL + TASK_STATUS_CONTROLLER_PATH;
+    public static final String BASE_TASK_URL = BASE_URL + TASK_CONTROLLER_PATH;
+
+    public static final String TEST_USERNAME = "email@email.com";
+    public static final String TEST_USERNAME_2 = "email2@email.com";
+    private static final ObjectMapper MAPPER = new ObjectMapper().findAndRegisterModules();
+
+    public void clearDB() {
         taskRepository.deleteAll();
         labelRepository.deleteAll();
         taskStatusRepository.deleteAll();
         userRepository.deleteAll();
     }
 
+    private final UserDto testUserDto = new UserDto(
+            "firstName",
+            "lastName",
+            TEST_USERNAME,
+            "pass"
+    );
+    public UserDto getTestUserDto() {
+        return testUserDto;
+    }
+    public User getUserByEmail(final String email) {
+        return userRepository.findByEmail(email).get();
+    }
+
+    public ResultActions regDefaultUser() throws Exception {
+        return regUser(testUserDto);
+    }
+
+    public ResultActions regUser(final UserDto dto) throws Exception {
+        final var request = post(BASE_USER_URL)
+                .content(asJson(dto))
+                .contentType(APPLICATION_JSON);
+        return perform(request);
+    }
+
+
     public ResultActions createNewTaskStatus() throws Exception {
         TaskStatusDto taskStatusDto = new TaskStatusDto("new status");
-        return perform(post(BASE_URL + TASK_STATUS_CONTROLLER_PATH)
+        User user = userRepository.findAll().get(0);
+        return perform(post(BASE_STATUS_URL)
                 .content(asJson(taskStatusDto))
-                .contentType(APPLICATION_JSON), TEST_USERNAME);
+                .contentType(APPLICATION_JSON), user.getEmail());
     }
-
     public ResultActions createNewLabel() throws Exception {
         LabelDto labelDto = new LabelDto("new label");
-        return perform(post(BASE_URL + LABEL_CONTROLLER_PATH)
+        User user = userRepository.findAll().get(0);
+        return perform(post(BASE_LABEL_URL)
                 .content(asJson(labelDto))
-                .contentType(APPLICATION_JSON), TEST_USERNAME);
+                .contentType(APPLICATION_JSON), user.getEmail());
     }
-
     public ResultActions createNewTask() throws Exception {
-        User user = fromJson(regDefaultUser()
-                        .andReturn()
-                        .getResponse()
-                        .getContentAsString(),
-                new TypeReference<User>() {
-                });
-        Label label = fromJson(createNewLabel()
-                        .andReturn()
-                        .getResponse()
-                        .getContentAsString(),
-                new TypeReference<Label>() {
-                });
-        TaskStatus taskStatus = fromJson(createNewTaskStatus()
-                        .andReturn()
-                        .getResponse()
-                        .getContentAsString(),
-                new TypeReference<TaskStatus>() {
-                });
+        User user = userRepository.findAll().get(0);
+        createNewLabel();
+        Label label = labelRepository.findAll().get(0);
+        createNewTaskStatus();
+        TaskStatus taskStatus = taskStatusRepository.findAll().get(0);
 
         TaskDto taskDto = new TaskDto("Task",
                 "description",
@@ -115,26 +118,11 @@ public class TestUtils {
                 taskStatus.getId(),
                 List.of(label.getId()));
 
-        return perform(post(BASE_URL + TASK_CONTROLLER_PATH)
+        return perform(post(BASE_TASK_URL)
                 .content(asJson(taskDto))
-                .contentType(APPLICATION_JSON), TEST_USERNAME);
+                .contentType(APPLICATION_JSON), user.getEmail());
     }
 
-    public User getUserByEmail(final String email) {
-        return userRepository.findByEmail(email).get();
-    }
-
-    public ResultActions regDefaultUser() throws Exception {
-        return regUser(testRegistrationDto);
-    }
-
-    public ResultActions regUser(final UserDto dto) throws Exception {
-        final var request = post(BASE_URL + USER_CONTROLLER_PATH)
-                .content(asJson(dto))
-                .contentType(APPLICATION_JSON);
-
-        return perform(request);
-    }
 
     public ResultActions perform(final MockHttpServletRequestBuilder request, final String byUser) throws Exception {
         final String token = jwtHelper.expiring(Map.of("username", byUser));
@@ -142,17 +130,14 @@ public class TestUtils {
 
         return perform(request);
     }
-
     public ResultActions perform(final MockHttpServletRequestBuilder request) throws Exception {
         return mockMvc.perform(request);
     }
 
-    private static final ObjectMapper MAPPER = new ObjectMapper().findAndRegisterModules();
 
     public static String asJson(final Object object) throws JsonProcessingException {
         return MAPPER.writeValueAsString(object);
     }
-
     public static <T> T fromJson(final String json, final TypeReference<T> to) throws JsonProcessingException {
         return MAPPER.readValue(json, to);
     }

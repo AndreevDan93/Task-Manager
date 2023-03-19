@@ -5,8 +5,10 @@ import hexlet.code.config.SpringConfigForIT;
 import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Label;
 import hexlet.code.model.Task;
+import hexlet.code.model.User;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
+import hexlet.code.repository.UserRepository;
 import hexlet.code.utils.TestUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -21,9 +23,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
-import static hexlet.code.controller.LabelController.ID;
-import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
-import static hexlet.code.utils.TestUtils.BASE_URL;
+import static hexlet.code.utils.TestUtils.BASE_TASK_URL;
+import static hexlet.code.utils.TestUtils.ID;
 import static hexlet.code.utils.TestUtils.TEST_USERNAME;
 import static hexlet.code.utils.TestUtils.asJson;
 import static hexlet.code.utils.TestUtils.fromJson;
@@ -48,25 +49,30 @@ public class TaskControllerIT {
 
     @Autowired
     private TestUtils utils;
+    @Autowired
+    private UserRepository userRepository;
 
     @AfterEach
     public void clear() {
-        utils.tearDown();
+        utils.clearDB();
     }
 
     @Test
     public void testCreateNewTask() throws Exception {
+        utils.regDefaultUser();
         assertThat(taskRepository.count()).isEqualTo(0);
-        utils.createNewTask();
+        utils.createNewTask().andExpect(status().isCreated());
         assertThat(taskRepository.count()).isEqualTo(1);
     }
 
     @Test
     public void testGetById() throws Exception {
+        utils.regDefaultUser();
+        User user = userRepository.findAll().get(0);
         utils.createNewTask();
         Task expectedTask = taskRepository.findAll().get(0);
-        final var responseGet = utils.perform(get(BASE_URL + TASK_CONTROLLER_PATH + ID,
-                        expectedTask.getId()), TEST_USERNAME)
+        final var responseGet = utils.perform(get(BASE_TASK_URL + ID,
+                        expectedTask.getId()), user.getEmail())
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
@@ -80,9 +86,11 @@ public class TaskControllerIT {
 
     @Test
     public void testGetAllTask() throws Exception {
+        utils.regDefaultUser();
+        User user = userRepository.findAll().get(0);
         assertEquals(0, taskRepository.count());
         utils.createNewTask();
-        final var responseGet = utils.perform(get(BASE_URL + TASK_CONTROLLER_PATH), TEST_USERNAME)
+        final var responseGet = utils.perform(get(BASE_TASK_URL), user.getEmail())
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
@@ -93,6 +101,8 @@ public class TaskControllerIT {
 
     @Test
     public void testUpdateTask() throws Exception {
+        utils.regDefaultUser();
+        User user = userRepository.findAll().get(0);
         utils.createNewTask();
         Task task = taskRepository.findAll().get(0);
         Label label = labelRepository.findAll().get(0);
@@ -103,11 +113,11 @@ public class TaskControllerIT {
                 task.getTaskStatus().getId(),
                 List.of(label.getId()));
 
-        final var updateRequest = put(BASE_URL + TASK_CONTROLLER_PATH + ID, task.getId(), TEST_USERNAME)
+        utils.perform(put(BASE_TASK_URL + ID, task.getId())
                 .content(asJson(taskDto))
-                .contentType(APPLICATION_JSON);
+                .contentType(APPLICATION_JSON), user.getEmail())
+                        .andExpect(status().isOk());
 
-        utils.perform(updateRequest, TEST_USERNAME).andExpect(status().isOk());
         task = taskRepository.findAll().get(0);
         assertEquals(1, taskRepository.count());
         assertEquals("task", task.getName());
@@ -116,10 +126,11 @@ public class TaskControllerIT {
 
     @Test
     public void deleteById() throws Exception {
+        utils.regDefaultUser();
         utils.createNewTask();
         Assertions.assertThat(taskRepository.count()).isEqualTo(1);
         Task task = taskRepository.findAll().get(0);
-        utils.perform(delete(BASE_URL + TASK_CONTROLLER_PATH + ID, task.getId()), TEST_USERNAME)
+        utils.perform(delete(BASE_TASK_URL + ID, task.getId()), TEST_USERNAME)
                 .andExpect(status().isOk());
         Assertions.assertThat(taskRepository.count()).isEqualTo(0);
     }
