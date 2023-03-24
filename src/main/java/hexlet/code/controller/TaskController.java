@@ -31,8 +31,11 @@ import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
 @AllArgsConstructor
 public class TaskController {
     public static final String TASK_CONTROLLER_PATH = "/tasks";
+
     public static final String ID = "/{id}";
+
     private final TaskService taskService;
+
 
     @Operation(summary = "Get Task by ID")
     @ApiResponses(value = {

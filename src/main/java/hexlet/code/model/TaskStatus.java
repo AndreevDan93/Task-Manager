@@ -31,13 +31,16 @@ public class TaskStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank(message = "Task Status Name should not be Empty")
     @Column(name = "name")
     private String name;
+
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     @Column(name = "createdAt")
     private Date createdAt;
+
     @JsonIgnore
     @OneToMany(mappedBy = "taskStatus")
     private List<Task> tasks;

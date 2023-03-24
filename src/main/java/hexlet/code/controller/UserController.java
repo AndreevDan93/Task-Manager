@@ -31,10 +31,13 @@ import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
 @RequestMapping("${base-url}" + USER_CONTROLLER_PATH)
 public class UserController {
     public static final String USER_CONTROLLER_PATH = "/users";
+
     public static final String ID = "/{id}";
+
     private static final String ONLY_OWNER_BY_ID = """
                 @userRepository.findById(#id).get().getEmail() == authentication.getName()
             """;
+
     private final UserService userService;
 
     @Operation(summary = "Get User by ID")

@@ -31,15 +31,17 @@ public class Label {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank(message = "Label Name should not be empty")
     @Column(name = "name")
     private String name;
+
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     @Column(name = "createdAt")
     private Date createdAt;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "labels")
     private List<Task> tasks;
-
 }

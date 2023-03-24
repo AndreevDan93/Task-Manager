@@ -29,8 +29,11 @@ import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER
 @AllArgsConstructor
 public class TaskStatusController {
     public static final String TASK_STATUS_CONTROLLER_PATH = "/statuses";
+
     public static final String ID = "/{id}";
+
     private final TaskStatusService taskStatusService;
+
 
     @Operation(summary = "Get Task Status by ID")
     @ApiResponses(value = {

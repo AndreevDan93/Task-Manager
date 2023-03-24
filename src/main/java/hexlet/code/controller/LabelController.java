@@ -30,8 +30,11 @@ import static hexlet.code.controller.LabelController.LABEL_CONTROLLER_PATH;
 @AllArgsConstructor
 public class LabelController {
     public static final String LABEL_CONTROLLER_PATH = "/labels";
+
     public static final String ID = "/{id}";
+
     private final LabelService labelService;
+
 
     @Operation(summary = "Get Label by ID")
     @ApiResponses(value = {

@@ -18,7 +18,7 @@ spring:
     properties:
           hibernate:
             dialect:
-              PostgreSQLDialect:
+              PostgreSQLDialect: PosgreSQLDialect
 
 
 
