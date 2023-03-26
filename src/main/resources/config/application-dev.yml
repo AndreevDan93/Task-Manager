@@ -4,7 +4,7 @@ server:
 
 springdoc:
   swagger-ui:
-    path: /swagger.html
+    path: /swagger-ui.html
 
 spring:
   datasource:
