@@ -1,8 +1,6 @@
-package hackathon.ru.service.cityService;
+package hackathon.ru.service.iService;
 
-import hackathon.ru.dto.ApplicationDto;
 import hackathon.ru.dto.CityDto;
-import hackathon.ru.model.Application;
 import hackathon.ru.model.City;
 
 import java.util.List;
@@ -12,5 +10,5 @@ public interface CityService {
     List<City> getAllCities();
     City createCity(CityDto cityDto);
     City updateCity(Long id, CityDto cityDto);
-    void deleteCity(Long id);
+    void deleteCityById(Long id);
 }

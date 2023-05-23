@@ -1,4 +1,4 @@
-package hackathon.ru.exception;
+package hackathon.ru.aold.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

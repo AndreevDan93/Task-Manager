@@ -1,8 +1,6 @@
-package hexlet.code.controller;
+package hackathon.ru.controller;
 
-import hexlet.code.dto.LabelDto;
-import hexlet.code.model.Label;
-import hexlet.code.service.labelService.LabelService;
+import hackathon.ru.service.labelService.LabelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static hexlet.code.controller.LabelController.LABEL_CONTROLLER_PATH;
+import static hackathon.ru.controller.LabelController.LABEL_CONTROLLER_PATH;
 
 @Tag(name = "Label controller")
 @RestController

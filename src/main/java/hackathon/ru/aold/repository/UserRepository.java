@@ -1,6 +1,6 @@
-package hackathon.ru.repository;
+package hackathon.ru.aold.repository;
 
-import hackathon.ru.model.User;
+import hackathon.ru.aold.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

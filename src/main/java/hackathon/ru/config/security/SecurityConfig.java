@@ -1,8 +1,9 @@
-package hexlet.code.config.security;
+package hackathon.ru.config.security;
 
-import hexlet.code.component.JWTHelper;
-import hexlet.code.filter.JWTAuthenticationFilter;
-import hexlet.code.filter.JWTAuthorizationFilter;
+import hackathon.ru.controller.UserController;
+import hackathon.ru.filter.JWTAuthenticationFilter;
+import hackathon.ru.filter.JWTAuthorizationFilter;
+import hackathon.ru.component.JWTHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,7 +23,6 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.List;
 
-import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
@@ -54,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.loginRequest = new AntPathRequestMatcher(baseUrl + LOGIN, POST.toString());
         this.publicUrls = new OrRequestMatcher(
                 loginRequest,
-                new AntPathRequestMatcher(baseUrl + USER_CONTROLLER_PATH, POST.toString()),
-                new AntPathRequestMatcher(baseUrl + USER_CONTROLLER_PATH, GET.toString()),
+                new AntPathRequestMatcher(baseUrl + UserController.USER_CONTROLLER_PATH, POST.toString()),
+                new AntPathRequestMatcher(baseUrl + UserController.USER_CONTROLLER_PATH, GET.toString()),
                 new NegatedRequestMatcher(new AntPathRequestMatcher(baseUrl + "/**"))
         );
 

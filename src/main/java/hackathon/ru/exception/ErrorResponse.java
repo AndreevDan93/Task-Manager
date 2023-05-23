@@ -1,4 +1,4 @@
-package hexlet.code.exception;
+package hackathon.ru.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StatusDto {
+public class ApplicationStatusDto {
 
+    @NotNull(message = "Name should not be empty")
     private String name;
 
-    private List<Long> applicationsIds;
 }

@@ -1,4 +1,4 @@
-package hackathon.ru.controller;
+package hackathon.ru.aold.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

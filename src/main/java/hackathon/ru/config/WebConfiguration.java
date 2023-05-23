@@ -1,4 +1,4 @@
-package hexlet.code.config;
+package hackathon.ru.config;
 
 import java.io.IOException;
 

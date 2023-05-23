@@ -1,4 +1,4 @@
-package hackathon.ru.config.rollbar;
+package hackathon.ru.aold.config.rollbar;
 
 import com.rollbar.notifier.Rollbar;
 import com.rollbar.notifier.config.Config;

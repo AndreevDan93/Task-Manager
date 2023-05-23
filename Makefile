@@ -32,6 +32,6 @@ generate-migrations:
 	gradle diffChangeLog
 
 db-migrate:
-	./gradlew update
+	./gradlew updateе
 
 .PHONY: build

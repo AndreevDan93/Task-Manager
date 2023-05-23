@@ -1,6 +1,6 @@
-package hackathon.ru.filter;
+package hackathon.ru.aold.filter;
 
-import hackathon.ru.component.JWTHelper;
+import hackathon.ru.aold.component.JWTHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.RequestMatcher;

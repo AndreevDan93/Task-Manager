@@ -1,15 +1,15 @@
-package hackathon.ru.service.taskService;
+package hackathon.ru.aold.service.taskService;
 
 import com.querydsl.core.types.Predicate;
-import hackathon.ru.model.Task;
-import hackathon.ru.model.TaskStatus;
-import hackathon.ru.service.taskStatusService.TaskStatusService;
-import hackathon.ru.service.userService.UserService;
-import hackathon.ru.dto.TaskDto;
-import hackathon.ru.model.Label;
-import hackathon.ru.model.User;
-import hackathon.ru.repository.LabelRepository;
-import hackathon.ru.repository.TaskRepository;
+import hackathon.ru.aold.dto.TaskDto;
+import hackathon.ru.aold.model.Label;
+import hackathon.ru.aold.model.Task;
+import hackathon.ru.aold.model.TaskStatus;
+import hackathon.ru.aold.model.User;
+import hackathon.ru.aold.repository.LabelRepository;
+import hackathon.ru.aold.repository.TaskRepository;
+import hackathon.ru.aold.service.taskStatusService.TaskStatusService;
+import hackathon.ru.aold.service.userService.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

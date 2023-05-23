@@ -1,8 +1,8 @@
-package hackathon.ru.service.taskService;
+package hackathon.ru.aold.service.taskService;
 
 import com.querydsl.core.types.Predicate;
-import hackathon.ru.dto.TaskDto;
-import hackathon.ru.model.Task;
+import hackathon.ru.aold.dto.TaskDto;
+import hackathon.ru.aold.model.Task;
 
 public interface TaskService {
     Task getTaskById(long id);

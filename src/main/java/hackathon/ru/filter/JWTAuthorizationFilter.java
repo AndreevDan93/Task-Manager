@@ -1,6 +1,6 @@
-package hexlet.code.filter;
+package hackathon.ru.filter;
 
-import hexlet.code.component.JWTHelper;
+import hackathon.ru.component.JWTHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static hexlet.code.config.security.SecurityConfig.DEFAULT_AUTHORITIES;
+import static hackathon.ru.config.security.SecurityConfig.DEFAULT_AUTHORITIES;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
 

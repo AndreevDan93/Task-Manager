@@ -1,4 +1,4 @@
-package hackathon.ru.exception.custom;
+package hackathon.ru.aold.exception.custom;
 
 import javax.persistence.EntityNotFoundException;
 

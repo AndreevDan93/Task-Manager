@@ -1,8 +1,7 @@
-package hexlet.code.filter;
+package hackathon.ru.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.dto.LoginDto;
-import hexlet.code.component.JWTHelper;
+import hackathon.ru.component.JWTHelper;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

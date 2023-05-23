@@ -1,4 +1,4 @@
-package hackathon.ru.service.userService;
+package hackathon.ru.service.iService;
 
 
 import hackathon.ru.dto.UserDto;
@@ -8,11 +8,17 @@ import java.util.List;
 
 public interface UserService {
     User getUserById(Long id);
+
     List<User> getAllUsers();
+
     User createUser(UserDto userDTO);
+
     User updateUser(Long id, UserDto userDTO);
-    void deleteUser(Long id);
+
+    void deleteUserById(Long id);
+
     String getCurrentUserName();
+
     User getCurrentUser();
 }
 

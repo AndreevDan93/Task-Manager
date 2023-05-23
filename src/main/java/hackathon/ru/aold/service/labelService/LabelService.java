@@ -1,7 +1,7 @@
-package hackathon.ru.service.labelService;
+package hackathon.ru.aold.service.labelService;
 
-import hackathon.ru.dto.LabelDto;
-import hackathon.ru.model.Label;
+import hackathon.ru.aold.dto.LabelDto;
+import hackathon.ru.aold.model.Label;
 
 import java.util.List;
 

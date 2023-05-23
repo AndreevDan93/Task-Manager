@@ -1,20 +1,16 @@
-package hexlet.code.utils;
+package hackathon.ru.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.component.JWTHelper;
-import hexlet.code.dto.LabelDto;
-import hexlet.code.dto.TaskDto;
-import hexlet.code.dto.TaskStatusDto;
-import hexlet.code.dto.UserDto;
-import hexlet.code.model.Label;
-import hexlet.code.model.TaskStatus;
-import hexlet.code.model.User;
-import hexlet.code.repository.LabelRepository;
-import hexlet.code.repository.TaskRepository;
-import hexlet.code.repository.TaskStatusRepository;
-import hexlet.code.repository.UserRepository;
+import hackathon.ru.controller.LabelController;
+import hackathon.ru.controller.TaskController;
+import hackathon.ru.controller.TaskStatusController;
+import hackathon.ru.controller.UserController;
+import hackathon.ru.dto.UserDto;
+import hackathon.ru.model.User;
+import hackathon.ru.repository.UserRepository;
+import hackathon.ru.component.JWTHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -25,10 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import static hexlet.code.controller.LabelController.LABEL_CONTROLLER_PATH;
-import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
-import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
-import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,10 +42,10 @@ public class TestUtils {
 
     public static final String ID = "/{id}";
     public static final String BASE_URL = "/api";
-    public static final String BASE_USER_URL = BASE_URL + USER_CONTROLLER_PATH;
-    public static final String BASE_LABEL_URL = BASE_URL + LABEL_CONTROLLER_PATH;
-    public static final String BASE_STATUS_URL = BASE_URL + TASK_STATUS_CONTROLLER_PATH;
-    public static final String BASE_TASK_URL = BASE_URL + TASK_CONTROLLER_PATH;
+    public static final String BASE_USER_URL = BASE_URL + UserController.USER_CONTROLLER_PATH;
+    public static final String BASE_LABEL_URL = BASE_URL + LabelController.LABEL_CONTROLLER_PATH;
+    public static final String BASE_STATUS_URL = BASE_URL + TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
+    public static final String BASE_TASK_URL = BASE_URL + TaskController.TASK_CONTROLLER_PATH;
 
     public static final String TEST_USERNAME = "email@email.com";
     public static final String TEST_USERNAME_2 = "email2@email.com";

@@ -1,10 +1,10 @@
-package hackathon.ru.exception;
+package hackathon.ru.aold.exception;
 
 import com.rollbar.notifier.Rollbar;
-import hackathon.ru.exception.custom.TaskNotFoundException;
-import hackathon.ru.exception.custom.LabelNotFoundException;
-import hackathon.ru.exception.custom.TaskStatusNotFoundException;
-import hackathon.ru.exception.custom.UserNotFoundException;
+import hackathon.ru.aold.exception.custom.LabelNotFoundException;
+import hackathon.ru.aold.exception.custom.TaskNotFoundException;
+import hackathon.ru.aold.exception.custom.TaskStatusNotFoundException;
+import hackathon.ru.aold.exception.custom.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -16,12 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.*;
 
 @RequiredArgsConstructor
 @ResponseBody

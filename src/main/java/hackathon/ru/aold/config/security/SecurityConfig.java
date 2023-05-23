@@ -1,9 +1,9 @@
-package hackathon.ru.config.security;
+package hackathon.ru.aold.config.security;
 
-import hackathon.ru.controller.UserController;
-import hackathon.ru.filter.JWTAuthenticationFilter;
-import hackathon.ru.filter.JWTAuthorizationFilter;
-import hackathon.ru.component.JWTHelper;
+import hackathon.ru.aold.component.JWTHelper;
+import hackathon.ru.aold.controller.UserController;
+import hackathon.ru.aold.filter.JWTAuthenticationFilter;
+import hackathon.ru.aold.filter.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

@@ -1,4 +1,4 @@
-package hackathon.ru.service.roleService;
+package hackathon.ru.service.iService;
 
 import hackathon.ru.dto.RoleDto;
 import hackathon.ru.model.Role;
@@ -7,9 +7,13 @@ import java.util.List;
 
 
 public interface RoleService {
-    public Role getRoleById(Long id);
-    public List<Role> getAllRoles();
-    public Role createRole(RoleDto roleDto);
-    public Role updateRole(Long id, RoleDto roleDto);
-    public void deleteRole(Long id);
+    Role getRoleById(Long id);
+
+    List<Role> getAllRoles();
+
+    Role createRole(RoleDto roleDto);
+
+    Role updateRole(Long id, RoleDto roleDto);
+
+    void deleteRoleById(Long id);
 }

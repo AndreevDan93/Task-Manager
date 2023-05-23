@@ -1,4 +1,4 @@
-package hackathon.ru.service.candidateService;
+package hackathon.ru.service.iService;
 
 import hackathon.ru.dto.CandidateDto;
 import hackathon.ru.model.Candidate;

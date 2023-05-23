@@ -1,4 +1,4 @@
-package hexlet.code.config;
+package hackathon.ru.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

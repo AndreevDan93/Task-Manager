@@ -1,8 +1,8 @@
-package hackathon.ru.service.userService;
+package hackathon.ru.aold.service.userService;
 
 
-import hackathon.ru.dto.UserDto;
-import hackathon.ru.model.User;
+import hackathon.ru.aold.dto.UserDto;
+import hackathon.ru.aold.model.User;
 
 import java.util.List;
 

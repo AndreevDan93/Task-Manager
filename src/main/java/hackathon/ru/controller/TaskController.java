@@ -1,9 +1,7 @@
-package hexlet.code.controller;
+package hackathon.ru.controller;
 
 import com.querydsl.core.types.Predicate;
-import hexlet.code.dto.TaskDto;
-import hexlet.code.model.Task;
-import hexlet.code.service.taskService.TaskService;
+import hackathon.ru.service.taskService.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
+import static hackathon.ru.controller.TaskController.TASK_CONTROLLER_PATH;
 
 @Tag(name = "Task controller")
 @RestController

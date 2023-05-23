@@ -1,4 +1,4 @@
-package hexlet.code.component;
+package hackathon.ru.component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;

@@ -1,7 +1,7 @@
-package hackathon.ru.service.taskStatusService;
+package hackathon.ru.aold.service.taskStatusService;
 
-import hackathon.ru.model.TaskStatus;
-import hackathon.ru.dto.TaskStatusDto;
+import hackathon.ru.aold.dto.TaskStatusDto;
+import hackathon.ru.aold.model.TaskStatus;
 
 import java.util.List;
 

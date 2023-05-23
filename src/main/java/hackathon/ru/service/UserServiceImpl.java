@@ -1,9 +1,10 @@
-package hackathon.ru.service.userService;
+package hackathon.ru.service;
 
 import hackathon.ru.config.security.SecurityConfig;
 import hackathon.ru.dto.UserDto;
 import hackathon.ru.model.User;
 import hackathon.ru.repository.UserRepository;
+import hackathon.ru.service.iService.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь с таким id не найден"));
         userRepository.delete(user);

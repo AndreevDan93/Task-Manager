@@ -1,23 +1,15 @@
-package hackathon.ru.controller;
+package hackathon.ru.aold.controller;
 
-import hackathon.ru.dto.TaskStatusDto;
-import hackathon.ru.model.TaskStatus;
-import hackathon.ru.service.taskStatusService.TaskStatusService;
+import hackathon.ru.aold.dto.TaskStatusDto;
+import hackathon.ru.aold.model.TaskStatus;
+import hackathon.ru.aold.service.taskStatusService.TaskStatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

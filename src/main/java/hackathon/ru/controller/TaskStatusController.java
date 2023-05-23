@@ -1,8 +1,6 @@
-package hexlet.code.controller;
+package hackathon.ru.controller;
 
-import hexlet.code.dto.TaskStatusDto;
-import hexlet.code.model.TaskStatus;
-import hexlet.code.service.taskStatusService.TaskStatusService;
+import hackathon.ru.service.taskStatusService.TaskStatusService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static hexlet.code.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
+import static hackathon.ru.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
 
 @Tag(name = "Task status controller")
 @RestController

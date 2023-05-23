@@ -1,7 +1,10 @@
-package hackathon.ru.service.vacancyService;
+package hackathon.ru.service;
 
 import hackathon.ru.dto.VacancyDto;
+import hackathon.ru.exception.custom.VacancyNotFoundException;
 import hackathon.ru.model.Vacancy;
+import hackathon.ru.repository.VacancyRepository;
+import hackathon.ru.service.iService.VacancyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +12,14 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class VacancyServiceImpl implements VacancyService{
+public class VacancyServiceImpl implements VacancyService {
+
+    private final VacancyRepository vacancyRepository;
+
     @Override
     public Vacancy getVacancyById(Long id) {
-        return null;
+        return vacancyRepository.findById(id)
+                .orElseThrow(() -> new VacancyNotFoundException("vacancy with that id is not found"));
     }
 
     @Override
@@ -31,7 +38,7 @@ public class VacancyServiceImpl implements VacancyService{
     }
 
     @Override
-    public void deleteVacancy(Long id) {
+    public void deleteVacancyById(Long id) {
 
     }
 }

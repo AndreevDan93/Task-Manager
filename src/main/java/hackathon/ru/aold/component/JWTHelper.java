@@ -1,4 +1,4 @@
-package hackathon.ru.component;
+package hackathon.ru.aold.component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;

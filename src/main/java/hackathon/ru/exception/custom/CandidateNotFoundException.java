@@ -2,8 +2,8 @@ package hackathon.ru.exception.custom;
 
 import javax.persistence.EntityNotFoundException;
 
-public class TaskNotFoundException extends EntityNotFoundException {
-    public TaskNotFoundException(String message) {
+public class CandidateNotFoundException extends EntityNotFoundException {
+    public CandidateNotFoundException(String message) {
         super(message);
     }
 }

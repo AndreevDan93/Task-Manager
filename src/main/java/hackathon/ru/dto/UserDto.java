@@ -1,4 +1,4 @@
-package hexlet.code.dto;
+package hackathon.ru.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,12 +14,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    @NotBlank(message = "First Name should not be Empty")
-    private String firstName;
-
-    @NotBlank(message = "Last Name should not be Empty")
-    private String lastName;
-
     @NotBlank(message = "Email should not be Empty")
     @Email(message = "Incorrect Email")
     private String email;
@@ -27,4 +21,17 @@ public class UserDto {
     @NotBlank(message = "Password should not be Empty")
     @Size(min = 3, max = 100, message = "Password should be between at 3 to 100 symbols")
     private String password;
+
+    @NotBlank(message = "First Name should not be Empty")
+    private String firstName;
+
+    @NotBlank(message = "Last Name should not be Empty")
+    private String lastName;
+
+    @NotBlank(message = "Phone Number should not be Empty")
+    private String phoneNumber;
+
+    @NotBlank(message = "Status should not be Empty")
+    private Long statusId;
+
 }

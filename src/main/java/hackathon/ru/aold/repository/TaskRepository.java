@@ -1,6 +1,6 @@
-package hackathon.ru.repository;
+package hackathon.ru.aold.repository;
 
-import hackathon.ru.model.Task;
+import hackathon.ru.aold.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

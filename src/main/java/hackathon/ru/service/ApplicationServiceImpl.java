@@ -1,4 +1,4 @@
-package hackathon.ru.service.applicationService;
+package hackathon.ru.service;
 
 import hackathon.ru.dto.ApplicationDto;
 import hackathon.ru.exception.custom.ApplicationNotFoundException;
@@ -7,9 +7,10 @@ import hackathon.ru.model.Candidate;
 import hackathon.ru.model.ApplicationStatus;
 import hackathon.ru.model.Vacancy;
 import hackathon.ru.repository.ApplicationRepository;
-import hackathon.ru.service.candidateService.CandidateService;
-import hackathon.ru.service.statusService.StatusService;
-import hackathon.ru.service.vacancyService.VacancyService;
+import hackathon.ru.service.iService.ApplicationService;
+import hackathon.ru.service.iService.CandidateService;
+import hackathon.ru.service.iService.ApplicationStatusService;
+import hackathon.ru.service.iService.VacancyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ApplicationServiceImpl implements ApplicationService{
+public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final CandidateService candidateService;
     private final VacancyService vacancyService;
-    private final StatusService statusService;
+    private final ApplicationStatusService applicationStatusService;
 
     @Override
     public Application getApplicationById(Long id) {
@@ -42,7 +43,7 @@ public class ApplicationServiceImpl implements ApplicationService{
                 .comment(applicationDto.getComment())
                 .vacancy(vacancyService.getVacancyById(applicationDto.getVacancyId()))
                 .candidate(candidateService.getCandidateById(applicationDto.getCandidateId()))
-                .status(statusService.getStatusById(applicationDto.getApplicationStatusId()))
+                .status(applicationStatusService.getApplicationStatusById(applicationDto.getApplicationStatusId()))
                 .build();
         return applicationRepository.save(application);
     }
@@ -52,7 +53,7 @@ public class ApplicationServiceImpl implements ApplicationService{
         Application application = getApplicationById(id);
         Vacancy vacancy = vacancyService.getVacancyById(applicationDto.getVacancyId());
         Candidate candidate = candidateService.getCandidateById(applicationDto.getVacancyId());
-        ApplicationStatus status = statusService.getStatusById(applicationDto.getApplicationStatusId());
+        ApplicationStatus status = applicationStatusService.getApplicationStatusById(applicationDto.getApplicationStatusId());
         application.setComment(application.getComment());
         application.setVacancy(vacancy);
         application.setCandidate(candidate);
@@ -61,7 +62,7 @@ public class ApplicationServiceImpl implements ApplicationService{
     }
 
     @Override
-    public void deleteApplication(Long id) {
+    public void deleteApplicationById(Long id) {
         Application application = getApplicationById(id);
         applicationRepository.delete(application);
     }

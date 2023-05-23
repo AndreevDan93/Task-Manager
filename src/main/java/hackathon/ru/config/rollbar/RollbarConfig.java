@@ -1,4 +1,4 @@
-package hexlet.code.config.rollbar;
+package hackathon.ru.config.rollbar;
 
 import com.rollbar.notifier.Rollbar;
 import com.rollbar.notifier.config.Config;

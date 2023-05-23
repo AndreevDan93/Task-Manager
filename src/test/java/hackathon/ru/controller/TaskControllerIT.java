@@ -1,15 +1,10 @@
-package hexlet.code.controller;
+package hackathon.ru.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import hexlet.code.config.SpringConfigForIT;
-import hexlet.code.dto.TaskDto;
-import hexlet.code.model.Label;
-import hexlet.code.model.Task;
-import hexlet.code.model.User;
-import hexlet.code.repository.LabelRepository;
-import hexlet.code.repository.TaskRepository;
-import hexlet.code.repository.UserRepository;
-import hexlet.code.utils.TestUtils;
+import hackathon.ru.config.SpringConfigForIT;
+import hackathon.ru.model.User;
+import hackathon.ru.repository.UserRepository;
+import hackathon.ru.utils.TestUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -19,15 +14,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
-import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
-import static hexlet.code.utils.TestUtils.BASE_TASK_URL;
-import static hexlet.code.utils.TestUtils.ID;
-import static hexlet.code.utils.TestUtils.TEST_USERNAME;
-import static hexlet.code.utils.TestUtils.asJson;
-import static hexlet.code.utils.TestUtils.fromJson;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -38,7 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ActiveProfiles(TEST_PROFILE)
+@ActiveProfiles(SpringConfigForIT.TEST_PROFILE)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = SpringConfigForIT.class)
 public class TaskControllerIT {
@@ -71,12 +61,12 @@ public class TaskControllerIT {
         User user = userRepository.findAll().get(0);
         utils.createNewTask();
         Task expectedTask = taskRepository.findAll().get(0);
-        final var responseGet = utils.perform(get(BASE_TASK_URL + ID,
+        final var responseGet = utils.perform(MockMvcRequestBuilders.get(TestUtils.BASE_TASK_URL + TestUtils.ID,
                         expectedTask.getId()), user.getEmail())
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
-        Task task = fromJson(responseGet.getContentAsString(), new TypeReference<Task>() {
+        Task task = TestUtils.fromJson(responseGet.getContentAsString(), new TypeReference<Task>() {
         });
         assertEquals(expectedTask.getName(), task.getName());
         assertEquals(expectedTask.getDescription(), task.getDescription());
@@ -90,11 +80,11 @@ public class TaskControllerIT {
         User user = userRepository.findAll().get(0);
         assertEquals(0, taskRepository.count());
         utils.createNewTask();
-        final var responseGet = utils.perform(get(BASE_TASK_URL), user.getEmail())
+        final var responseGet = utils.perform(MockMvcRequestBuilders.get(TestUtils.BASE_TASK_URL), user.getEmail())
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
-        List<Task> tasks = fromJson(responseGet.getContentAsString(), new TypeReference<List<Task>>() {
+        List<Task> tasks = TestUtils.fromJson(responseGet.getContentAsString(), new TypeReference<List<Task>>() {
         });
         assertEquals(1, tasks.size());
     }
@@ -113,8 +103,8 @@ public class TaskControllerIT {
                 task.getTaskStatus().getId(),
                 List.of(label.getId()));
 
-        utils.perform(put(BASE_TASK_URL + ID, task.getId())
-                .content(asJson(taskDto))
+        utils.perform(MockMvcRequestBuilders.put(TestUtils.BASE_TASK_URL + TestUtils.ID, task.getId())
+                .content(TestUtils.asJson(taskDto))
                 .contentType(APPLICATION_JSON), user.getEmail())
                         .andExpect(status().isOk());
 
@@ -130,7 +120,7 @@ public class TaskControllerIT {
         utils.createNewTask();
         Assertions.assertThat(taskRepository.count()).isEqualTo(1);
         Task task = taskRepository.findAll().get(0);
-        utils.perform(delete(BASE_TASK_URL + ID, task.getId()), TEST_USERNAME)
+        utils.perform(MockMvcRequestBuilders.delete(TestUtils.BASE_TASK_URL + TestUtils.ID, task.getId()), TestUtils.TEST_USERNAME)
                 .andExpect(status().isOk());
         Assertions.assertThat(taskRepository.count()).isEqualTo(0);
     }

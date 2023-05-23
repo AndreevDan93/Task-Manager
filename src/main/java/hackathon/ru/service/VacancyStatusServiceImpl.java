@@ -1,2 +1,4 @@
-package hackathon.ru.service.vacancyStatusService;public class VacancyStatusServiceImpl {
+package hackathon.ru.service;
+
+public class VacancyStatusServiceImpl {
 }

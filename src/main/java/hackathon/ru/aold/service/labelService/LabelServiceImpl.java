@@ -1,8 +1,8 @@
-package hackathon.ru.service.labelService;
+package hackathon.ru.aold.service.labelService;
 
-import hackathon.ru.dto.LabelDto;
-import hackathon.ru.model.Label;
-import hackathon.ru.repository.LabelRepository;
+import hackathon.ru.aold.dto.LabelDto;
+import hackathon.ru.aold.model.Label;
+import hackathon.ru.aold.repository.LabelRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

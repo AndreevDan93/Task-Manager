@@ -1,4 +1,4 @@
-package hackathon.ru.dto;
+package hackathon.ru.aold.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,20 +1,11 @@
-package hexlet.code.model;
+package hackathon.ru.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.rollbar.api.payload.data.Person;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -29,18 +20,11 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank(message = "First Name should not be Empty")
-    @Column(name = "firstName")
-    private String firstName;
-
-    @NotBlank(message = "Last Name should not be Empty")
-    @Column(name = "lastName")
-    private String lastName;
 
     @NotBlank(message = "Email should not be Empty")
     @Email(message = "Incorrect Email")
@@ -53,16 +37,29 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @CreationTimestamp
-    @Temporal(TIMESTAMP)
-    @Column(name = "createdAt")
-    private Date createdAt;
+    @Column(name = "first_name")
+    private String firstName;
 
-    @JsonIgnore
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    private City userCity;
+
     @OneToMany(mappedBy = "author")
-    private List<Task> authorTasks;
+    private List<Vacancy> vacancies;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "executor")
-    private List<Task> executorsTasks;
+    @OneToOne(mappedBy = "user")
+    private Candidate candidate;
+
+
+
 }

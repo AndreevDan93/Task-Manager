@@ -1,10 +1,8 @@
-package hexlet.code.exception;
+package hackathon.ru.exception;
 
 import com.rollbar.notifier.Rollbar;
-import hexlet.code.exception.custom.LabelNotFoundException;
-import hexlet.code.exception.custom.TaskNotFoundException;
-import hexlet.code.exception.custom.TaskStatusNotFoundException;
-import hexlet.code.exception.custom.UserNotFoundException;
+import hackathon.ru.exception.custom.*;
+import hackathon.ru.model.VacancyStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -35,28 +33,53 @@ public class BaseExceptionHandler {
     }
 
     @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(ApplicationNotFoundException.class)
+    public ErrorResponse applicationNotFoundExceptionHandler(ApplicationNotFoundException exception) {
+        return getErrorResponseAndSendToRollbar(exception.getMessage());
+    }
+
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(ApplicationStatusNotFoundException.class)
+    public ErrorResponse applicationStatusNotFoundExceptionHandler(ApplicationStatusNotFoundException exception) {
+        return getErrorResponseAndSendToRollbar(exception.getMessage());
+    }
+
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(CandidateNotFoundException.class)
+    public ErrorResponse candidateNotFoundExceptionHandler(CandidateNotFoundException exception) {
+        return getErrorResponseAndSendToRollbar(exception.getMessage());
+    }
+
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(CityNotFoundException.class)
+    public ErrorResponse cityStatusNotFoundExceptionHandler(CityNotFoundException exception) {
+        return getErrorResponseAndSendToRollbar(exception.getMessage());
+    }
+
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ErrorResponse roleNotFoundExceptionHandler(RoleNotFoundException exception) {
+        return getErrorResponseAndSendToRollbar(exception.getMessage());
+    }
+
+    @ResponseStatus(NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
     public ErrorResponse userNotFoundExceptionHandler(UserNotFoundException exception) {
         return getErrorResponseAndSendToRollbar(exception.getMessage());
     }
 
     @ResponseStatus(NOT_FOUND)
-    @ExceptionHandler(TaskStatusNotFoundException.class)
-    public ErrorResponse taskStatusNotFoundExceptionHandler(TaskStatusNotFoundException exception) {
+    @ExceptionHandler(VacancyNotFoundException.class)
+    public ErrorResponse vacancyNotFoundExceptionHandler(VacancyNotFoundException exception) {
         return getErrorResponseAndSendToRollbar(exception.getMessage());
     }
 
     @ResponseStatus(NOT_FOUND)
-    @ExceptionHandler(TaskNotFoundException.class)
-    public ErrorResponse taskNotFoundExceptionHandler(TaskNotFoundException exception) {
+    @ExceptionHandler(VacancyStatusNotFoundException.class)
+    public ErrorResponse vacancyStatusNotFoundExceptionHandler(VacancyStatusNotFoundException exception) {
         return getErrorResponseAndSendToRollbar(exception.getMessage());
     }
 
-    @ResponseStatus(NOT_FOUND)
-    @ExceptionHandler(LabelNotFoundException.class)
-    public ErrorResponse labelNotFoundExceptionHandler(LabelNotFoundException exception) {
-        return getErrorResponseAndSendToRollbar(exception.getMessage());
-    }
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)

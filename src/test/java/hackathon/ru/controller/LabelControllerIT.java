@@ -1,13 +1,10 @@
-package hexlet.code.controller;
+package hackathon.ru.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import hexlet.code.config.SpringConfigForIT;
-import hexlet.code.dto.LabelDto;
-import hexlet.code.model.Label;
-import hexlet.code.model.User;
-import hexlet.code.repository.LabelRepository;
-import hexlet.code.repository.UserRepository;
-import hexlet.code.utils.TestUtils;
+import hackathon.ru.config.SpringConfigForIT;
+import hackathon.ru.model.User;
+import hackathon.ru.repository.UserRepository;
+import hackathon.ru.utils.TestUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,11 +16,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static hexlet.code.config.SpringConfigForIT.TEST_PROFILE;
-import static hexlet.code.utils.TestUtils.BASE_LABEL_URL;
-import static hexlet.code.utils.TestUtils.ID;
-import static hexlet.code.utils.TestUtils.asJson;
-import static hexlet.code.utils.TestUtils.fromJson;
+import static hackathon.ru.utils.TestUtils.BASE_LABEL_URL;
+import static hackathon.ru.utils.TestUtils.ID;
+import static hackathon.ru.utils.TestUtils.asJson;
+import static hackathon.ru.utils.TestUtils.fromJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@ActiveProfiles(TEST_PROFILE)
+@ActiveProfiles(SpringConfigForIT.TEST_PROFILE)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = SpringConfigForIT.class)
 public class LabelControllerIT {

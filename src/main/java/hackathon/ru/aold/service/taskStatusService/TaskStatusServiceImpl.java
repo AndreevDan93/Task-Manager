@@ -1,8 +1,8 @@
-package hackathon.ru.service.taskStatusService;
+package hackathon.ru.aold.service.taskStatusService;
 
-import hackathon.ru.model.TaskStatus;
-import hackathon.ru.dto.TaskStatusDto;
-import hackathon.ru.repository.TaskStatusRepository;
+import hackathon.ru.aold.dto.TaskStatusDto;
+import hackathon.ru.aold.model.TaskStatus;
+import hackathon.ru.aold.repository.TaskStatusRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

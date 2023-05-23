@@ -1,9 +1,10 @@
-package hackathon.ru.service.roleService;
+package hackathon.ru.service;
 
 import hackathon.ru.dto.RoleDto;
 import hackathon.ru.exception.custom.RoleNotFoundException;
 import hackathon.ru.model.Role;
 import hackathon.ru.repository.RoleRepository;
+import hackathon.ru.service.iService.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRole(Long id) {
+    public void deleteRoleById(Long id) {
         Role role = getRoleById(id);
         roleRepository.delete(role);
     }

@@ -1,7 +1,6 @@
-package hackathon.ru.service.applicationService;
+package hackathon.ru.service.iService;
 
 import hackathon.ru.dto.ApplicationDto;
-import hackathon.ru.dto.UserDto;
 import hackathon.ru.model.Application;
 
 import java.util.List;
@@ -11,5 +10,5 @@ public interface ApplicationService {
     List<Application> getAllApplications();
     Application createApplication(ApplicationDto applicationDto);
     Application updateApplication(Long id, ApplicationDto applicationDto);
-    void deleteApplication(Long id);
+    void deleteApplicationById(Long id);
 }

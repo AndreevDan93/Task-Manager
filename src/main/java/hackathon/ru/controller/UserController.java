@@ -1,8 +1,8 @@
-package hexlet.code.controller;
+package hackathon.ru.controller;
 
-import hexlet.code.dto.UserDto;
-import hexlet.code.model.User;
-import hexlet.code.service.userService.UserService;
+import hackathon.ru.service.iService.UserService;
+import hackathon.ru.dto.UserDto;
+import hackathon.ru.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
+import static hackathon.ru.controller.UserController.USER_CONTROLLER_PATH;
 
 @Tag(name = "User controller")
 @AllArgsConstructor

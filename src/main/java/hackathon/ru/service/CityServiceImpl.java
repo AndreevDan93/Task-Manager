@@ -1,23 +1,31 @@
-package hackathon.ru.service.cityService;
+package hackathon.ru.service;
 
 import hackathon.ru.dto.CityDto;
+import hackathon.ru.exception.custom.CityNotFoundException;
 import hackathon.ru.model.City;
+import hackathon.ru.repository.CityRepository;
+import hackathon.ru.service.iService.CityService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class CityServiceImpl implements CityService {
+
+    private final CityRepository cityRepository;
+
     @Override
     public City getCityById(Long id) {
-        return null;
+        return cityRepository.findById(id)
+                .orElseThrow(() -> new CityNotFoundException("city with that id is not found"));
     }
 
     @Override
     public List<City> getAllCities() {
-        return null;
+        return new ArrayList<>(cityRepository.findAll());
     }
 
     @Override
@@ -31,7 +39,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void deleteCity(Long id) {
+    public void deleteCityById(Long id) {
 
     }
 }
